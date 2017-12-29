@@ -3,6 +3,7 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
+import Spotify from '../../util/Spotify';
 
 class App extends Component {
   constructor(props) {
@@ -54,7 +55,7 @@ class App extends Component {
 
   removeTrack(track) {
       this.setState({
-        playlistTracks: this.state.playlistTracks.filter(track => this.state.playlistTracks.id !== track.id)
+        playlistTracks: this.state.playlistTracks.filter(currentTrack => currentTrack.id !== track.id)
       });
   }
 
@@ -65,7 +66,7 @@ class App extends Component {
   }
 
   savePlaylist() {
-
+    let trackURIs = this.state.playlistTracks.map(track => track.uri);
   }
 
   search(searchTerm) {
