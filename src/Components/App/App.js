@@ -9,26 +9,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [
-        {
-          name: '',
-          artist: '',
-          album: ''
-        }
-      ],
-      playlistName: 'Kayla Playlist',
-      playlistTracks: [
-        {
-          name: 'Holly Jolly Christmas',
-          artist: 'Michael Buble',
-          album: 'Christmas Whatever'
-        },
-        {
-          name: 'The A Team',
-          artist: 'Ed Sheeran',
-          album: 'I literally do not know'
-        }
-      ]
+      searchResults: [],
+      playlistName: 'New Playlist',
+      playlistTracks: []
     }
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -38,19 +21,11 @@ class App extends Component {
   }
 
   addTrack(track) {
-    for(let i = 0; i < this.state.playlistTracks.length; i++){
-      if(track.id !== this.state.playlistTracks[i].id) {
-        this.setState({
-          playlistTracks: [
-            this.state.playlistTracks,
-            {
-            name: track.name,
-            artist: track.artist,
-            album: track.album
-          }]
-        });
-      }
-    }
+    let newPlaylist = this.state.playlistTracks;
+    newPlaylist.push(track);
+    this.setState({
+      playlistTracks: newPlaylist
+    });
   }
 
   removeTrack(track) {
@@ -67,10 +42,21 @@ class App extends Component {
 
   savePlaylist() {
     let trackURIs = this.state.playlistTracks.map(track => track.uri);
+    Spotify.savePlaylist(this.state.playlistName, trackURIs)
+    .then(() => {
+      this.setState({
+        playlistName: 'New Playlist',
+        searchResults: []
+      });
+    });
   }
 
-  search(searchTerm) {
-    console.log(searchTerm);
+  search(term) {
+    Spotify.search(term).then(response => {
+      this.setState({
+        searchResults: response
+      });
+    });
   }
 
   render() {

@@ -2,6 +2,8 @@ body,
 html,
 #root {
   height: 100%;
+  position: relative;
+  top: -5px;
 }
 
 html {
@@ -36,9 +38,13 @@ h2 {
   font-family: 'Work Sans', sans-serif;
   font-weight: 500;
   color: #fff;
+  position: relative;
+  top: -30px;
 }
 
 .App-playlist {
+  display: -ms-flexbox;
+  display: -webkit-flex;
   display: flex;
   justify-content: space-between;
   width: 100%;
