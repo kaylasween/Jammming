@@ -21,11 +21,18 @@ class App extends Component {
   }
 
   addTrack(track) {
+    console.log("in add track");
     let newPlaylist = this.state.playlistTracks;
-    newPlaylist.push(track);
-    this.setState({
-      playlistTracks: newPlaylist
-    });
+    console.log(newPlaylist);
+    let inPlaylist = newPlaylist.includes(track);
+    if(!inPlaylist){
+      newPlaylist.push(track);
+      this.setState({
+        playlistTracks: newPlaylist
+      });
+    } else {
+      alert("This track already exists in the playlist!");
+    }
   }
 
   removeTrack(track) {
