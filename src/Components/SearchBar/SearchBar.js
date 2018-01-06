@@ -1,6 +1,5 @@
 import React from 'react';
 import './SearchBar.css';
-import Spotify from '../../util/Spotify';
 
 class SearchBar extends React.Component {
   constructor(props){
